@@ -52,7 +52,6 @@ var emailer = nodemailer.createTransport({/*Setup the account recovery emailer i
 
 var app = express()
 var server = http.createServer(app);
-var io = new Server(server);
 
 app.use(express.static("public"))/*Allow the user to access the public folder.*/
 app.get('/', (req, res) => {/*When the user requests the domain root...*/
@@ -64,7 +63,11 @@ server.listen(portToHostOn, () => {
   console.log("Listening on http://localhost:" + portToHostOn)
 })
 
-io.on("connection", (socket) => {/*When the user connects, save the user as "socket".*/
+var rootServer = new Server(server, {
+  path: "/socket.io"
+})/*This is the default namespace for root, so .of is unnecessary*/
+
+rootServer.on("connection", (socket) => {/*When the user connects, save the user as "socket".*/
   socket.on("getCurrentToS", function() {
     /*When the client requests to know the current Terms of Service...*/
     socket.emit("currentToS", fs.readFileSync("./public/ToS/index.html").toString())/*Send it to the client.*/
@@ -81,7 +84,7 @@ io.on("connection", (socket) => {/*When the user connects, save the user as "soc
     } else if (['chat', 'c', 'say', 'talk'].includes(cmnd)) {
 			/*The next few code blocks check if the cmnd is a certain word, then decides what to do after that.*/
 			/*Take all the words except the first, join them together by spaces (the opposite of .split), and send to the clients.*/
-			io.emit('chat', messageWords.slice(1).join(' '));
+			rootServer.emit('chat', messageWords.slice(1).join(' '));
 		} else if (['whisperto', 'sayto', 'talkto', 'tell', 't'].includes(cmnd)) {
 		} else if (['yell', 'y', 'scream', 'shout'].includes(cmnd)) {
 		} else if (['settings'].includes(cmnd)) {
@@ -163,4 +166,38 @@ io.on("connection", (socket) => {/*When the user connects, save the user as "soc
       socket.emit("unknownCommand");
     }
 	});
+})
+
+var buzzServer = new Server(server, {
+  path: "/buzz/socket.io"
+}).of("/buzz")/*A namespace (subserver?) for organization.*/
+
+var buzzList = []/*An array to keep track of each and every buzz*/
+
+buzzServer.on("connection", (socket) => {
+  socket.emit("updateBuzzes", buzzList)/*Update the newbie's list*/
+  
+  socket.on("buzz", (username) => {
+    buzzList[buzzList.length] = {
+      username: username,
+      timestamp: Date.now() /*A static method.*/
+    }
+
+    buzzAdminServer.emit("updateBuzzes", buzzList)/*Update all the admin lists.*/
+    buzzServer.emit("updateBuzzes", buzzList)/*Update al the non-admin lists.*/
+  })
+})
+
+var buzzAdminServer = new Server(server, {
+  path: "/buzz/admin/socket.io"
+}).of("/buzzAdmin")/*A namespace (subserver?) for organization.*/
+
+buzzAdminServer.on("connection", (socket) => {
+  buzzAdminServer.emit("updateBuzzes", buzzList)
+
+  socket.on("clearBuzzes", () => {
+    buzzList = []
+    buzzAdminServer.emit("updateBuzzes", buzzList)/*Update all the admin lists.*/
+    buzzServer.emit("updateBuzzes", buzzList)/*Update all the non-admin lists*/
+  })
 })
