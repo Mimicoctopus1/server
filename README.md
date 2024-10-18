@@ -31,4 +31,7 @@ Feel free to make a pull request on GitHub. It will take an undeterminably long 
 * Use tab for indentation. Tab is the length of two spaces.
 
 # Changelog
+28/20/2024: Added support for buzzers! Just go to localhost:8080/buzz.
+Partial support added for admins, at localhost:8080/buzz/admin. Admins will be identical to the regular buzzers, so don't even bother.
+
 16/10/2024: Removed practically every single semicolon in JavaScript because it is easier to code now 
