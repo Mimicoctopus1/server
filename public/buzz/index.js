@@ -6,7 +6,7 @@ var buzzer = document.querySelectorAll(".buzzer")[0]
 var instructions = document.querySelectorAll(".instructions")[0]
 var serverStatus = document.querySelectorAll(".serverStatus")[0]
 var buzzes = document.querySelectorAll(".buzzes")[0]
-var username = localStorage.buzzUsername || prompt("Enter a username to be identified by.")
+var username = prompt("Enter a username to be identified by.") + "*"
 instructions.style.lineHeight = window.innerHeight * 0.10 + "px"
 
 socket.on("updateBuzzes", (buzzList) => {
