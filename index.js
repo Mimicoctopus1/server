@@ -188,12 +188,44 @@ buzzServer.on("connection", (socket) => {
   })
 })
 
+var timer = 0
+var timerTicker
+
 var buzzAdminServer = new Server(server, {
   path: "/buzz/admin/socket.io"
-}).of("/buzzAdmin")/*A namespace (subserver?) for organization.*/
+}).of("/buzz/admin")/*A namespace (subserver?) for organization.*/
 
 buzzAdminServer.on("connection", (socket) => {
-  buzzAdminServer.emit("updateBuzzes", buzzList)
+  socket.emit("updateBuzzes", buzzList)
+  
+  socket.on("buzz", (username) => {
+    buzzList[buzzList.length] = {
+      username: username,
+      timestamp: Date.now() /*A static method.*/
+    }
+
+    buzzAdminServer.emit("updateBuzzes", buzzList)/*Update all the admin lists.*/
+    buzzServer.emit("updateBuzzes", buzzList)/*Update al the non-admin lists.*/
+  })
+
+  socket.on("timer", (time) => {
+    timer += time
+    if(time == 0) {/*No need to add zero.*/
+      timer = 0/*Set to zero instead.*/
+    }
+
+    if(timerTicker == undefined) {/*If there isn't already a timer...*/
+      timerTicker = setInterval(() => {
+        if(timer > 0) {/*If there is time left...*/
+          timer -= 1/*Eat up some time.*/
+        } else {/*When all the time has been consumed...*/
+          clearTimeout(timerTicker)/*Self destruct.*/
+        }
+
+        buzzAdminServer.emit("timer", timer)/*Only update the admins.*/
+      }, 1000)
+    }
+  })
 
   socket.on("clearBuzzes", () => {
     buzzList = []

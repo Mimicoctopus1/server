@@ -20,6 +20,10 @@ socket.on("connect", () => {
   serverStatus.style.display = "none";
 })
 
+document.onkeydown = (event) => {
+  socket.emit("buzz", username)
+}
+
 buzzer.onclick = () => {
-  socket.emit("buzz", username, new Date())
+  socket.emit("buzz", username)
 }
