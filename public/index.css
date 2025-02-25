@@ -1,0 +1,69 @@
+/*Load custom fonts.*/
+@import url('https://fonts.googleapis.com/css2?family=Micro+5&display=swap');
+
+body {
+  margin: 0;
+  padding: 3%;
+  font-family: "Micro 5", monospace;
+}
+body::backdrop { /*body::backdrop is a psuedo (not-completely-real) -element that is behind the body.*/
+  background: rgba(255, 255, 255, 1); /*I make this white so that when you fullscreen, the background is still white; it would usually turn black.*/
+}
+.renderer {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  border: 0px solid black;
+  margin: 0px;
+  display: none; /*The 2 and 3d renderers are displayed by client.js depending on what mode you are playing in.*/
+}
+.rcmenu menu li {
+  width: 100px;
+  border: 1px solid black;
+  background: rgba(0, 0, 0, 0.05);
+}
+#form {
+  padding: 0;
+  height: 3rem;
+  z-index: 1;
+}
+.arrowSymbol {
+  display: none;
+  margin: 0%;
+  border: 0%;
+  padding: 0%;
+}
+.argument {
+  background: rgba(255, 255, 0);
+}
+.commandInput {
+  border: 0px;
+  margin: 0px;
+  width: 100%;
+  display: none;
+}
+.commandInput:focus {
+  outline: none;
+}
+#messages {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#messages > li {
+  padding: 0%, 10%;
+}
+#messages li {
+  border-bottom: 1px solid black;
+}
+.noJSError {
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  height: 100%;
+  width: 100%;
+  padding: 2%;
+  z-index: 2147483647; /*Largest possible z-index*/
+}
