@@ -1,0 +1,26 @@
+{
+  "name": "OJVJPJ Game - Mimicoctopus1",
+  "short_name": "OJVJPJ Game",
+  "description": "A fun adventure game on Glitch! This is a Work In Progress, so please don't blame me it isn't finished.",
+  "display": "standalone",
+  "screenshots": [
+    {
+      "src": "https://cdn.glitch.global/8daea706-1e6f-480a-9627-31efd187e265/ojvjpj%20512x512.png?v=1701899220331",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "OJVJPJ Logo that needs to be replaced"
+    }
+  ],
+  "icons": [
+    {
+      "sizes": "512x512",
+      "type": "image/png",
+      "src": "https://cdn.glitch.global/8daea706-1e6f-480a-9627-31efd187e265/ojvjpj%20512x512.png?v=1701899220331",
+      "purpose": "any"
+    }
+  ],
+  "background_color": "#000000",
+  "theme_color": "#00FFFF",
+  "start_url": "/"
+}

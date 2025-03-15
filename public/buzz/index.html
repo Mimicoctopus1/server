@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="https://mimicoctopus1.github.io/assets/game.ico" type="image/ico">
+    <link rel = "stylesheet" href = "./index.css">
+  </head>
+  <body>
+    <div class = "serverStatus">
+      Connecting to server...
+      <noscript>
+        JavaScript, the programming language used to create this program, is not enabled. Go to <a href = "about:settings">about:settings</a> and enable it. It doesn't require you to install anything, at least in a modern browser.
+      </noscript>
+    </div>
+
+    <div class = "buzzTable">
+      <table>
+        <thead>
+          <th>Username</th>
+          <th>Timestamp</th>
+        </thead>
+        <tbody class = "buzzes">
+
+        </tbody>
+      </table>
+
+      <p>* is not an admin</p>
+    </div>
+    
+    <div class = "buzzer">
+      <div class = "instructions">PRESS THE SCREEN OR THE SPACE BAR TO BUZZ IN</div>
+    </div>
+    <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
+    <script src = "./index.js"></script>
+  </body>
+</html>

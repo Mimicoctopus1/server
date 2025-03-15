@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <title>Game</title>
+		<link rel="stylesheet" href="index.css" /><!--Add the CSS file-->
+		<link rel="manifest" href="manifest.json" />
+	</head>
+	<body>
+    <div class = "modeText">
+      <ul id="messages"></ul>
+		  <form id="form" action="">
+		  	<span class = "arrowSymbol">&gt</span><!--An arrow surrounded by spaces.-->
+		  	<span class = "commandInput" tabindex = "1" autocomplete="off" contenteditable="true"></span><!--The input for text-mode.-->
+		  </form>
+    </div>
+    
+    <div class="mode2d">
+      <canvas class = "renderer2 renderer"></canvas><!--The canvas for rendering in 2D-->
+    </div>
+    
+    <div class="mode3d">
+      <canvas class = "renderer3 renderer"></canvas><!--The canvas for rendering in 3D-->
+    </div>
+    
+    <div class = "modeVR" style = "display: none; position: fixed; left: 0%; top: 0%; width: 100%; height: 100%; background: rgba(255, 255, 255, 1);">
+      <video class = "leftThreeDVideo"></video>
+      <video class = "rightThreeDVideo"></video>
+    </div>
+    
+    <div class = "pausePanels" style = "display: none;">
+    
+      <div class = "mediaPanel" style = "background: rgba(200, 200, 200, 0.8); position: fixed; left: 0px; top: 0px; width: 100%; height: 100%; padding: 5%;" method = "post" enctype = "multipart/form-data"><!--post means send the data to the server and multipart/form-data means that binary data is being sent across, rather than text.-->
+        <video class = "mediaPreview" autoplay></video><!--This is to preview the media the user has selected.--><br>
+        <input class = "mediaPreviewStart" value = "Start Recording" type = "button">
+        <input class = "mediaPreviewStop" value = "Stop Recording" type = "button">
+      </div>
+      
+    </div> <!--The pause panels appear when you press P.-->
+    
+    <div class = "terms" style = "background: rgba(0, 0, 0, 0.3); display: none; position: fixed; left: 0px; top: 0px; height: 100%; width: 100%;"><!--This div covers the entier screen so you can't click anything behind it, although the input has to be blocked from client.js for some reason. It is hidden and only shows if activated from client.js-->
+    <div style = "background: rgba(240, 240, 240, 1); border: 1px solid black; padding: 1%; position: fixed; left: 10%; top: 10%; height: 80%; width: 80%; z-index: 2147483647;"><!--This is the largest z-index allowed in HTML, so this should be in front of everything else.-->
+      <h1>
+        Terms of Service
+      </h1>
+      <input id = "termsCheckbox" class = "termsCheckbox" type = "checkbox">
+      I accept and agree to the <a href = "/terms" target = "_blank">Terms of Service</a>*
+      <input type = "button" value = "Continue" class = "continueFromTerms">
+      <div style = "position: absolute; bottom: 0%; font-size: 10%;">*That I may or may not have even looked at.</div>
+    </div>
+    </div>
+    
+		<!--Right-Click Menu-->
+		<div class="rcmenu" style="display: none">
+			<menu>
+				
+			</menu>
+		</div>
+    
+    <noscript class = "noJSError">
+      <h1>No JavaScript?</h1>
+      Apparently, you don't have JavaScript enabled.
+      This is a programming language that websites use to be interactive.
+      Please enable JavaScript in your settings, or use a device that already has it enabled.
+      However, note that <em>some</em> websites use JavaScript to scam you.
+      If you enable JavaScript, don't enter personal information unless you have verified that website's security. (Most likely with the help of Google).
+    </noscript>
+
+		<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+		<script type = "module" src="index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,39 @@
+.serverStatus {
+  position: fixed;
+  z-index: 1;
+  right: 0;
+  bottom: 0;
+  font: 200% monospace;
+  color: red;
+}
+
+.buzzTable {
+  position: fixed;
+  z-index: 2;
+}
+
+.buzzTable td {
+  border: 1px solid black;
+}
+
+.buzzTable th {
+  border: 2px solid black;
+}
+
+.buzzer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(100, 100, 100, 1);
+  text-align: center;
+}
+
+.instructions {
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  bottom: 45%;
+  /*index.js does positioning*/
+}
